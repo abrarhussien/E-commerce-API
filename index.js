@@ -25,6 +25,7 @@ const categoryRoutes = require("./routes/category.route");
 const orderRoute = require("./routes/order.route");
 const userRouter=require('./routes/users.route');
 const AdminRouter=require("./routes/admin.route");
+const shoppingCartRouter=require("./routes/shoppingCart.route");
 
 exp.use("/api/products", productsRoutes);
 exp.use("/api/categories", categoryRoutes);
@@ -32,6 +33,7 @@ exp.use("/api/profile", userProfileRoutes);
 exp.use("/api/product", reviewRoutes);
 exp.use("/api/orders", orderRoute);
 exp.use("/api/users",userRouter);
+exp.use("/api/carts",shoppingCartRouter);
 exp.use("/api/admin",AdminRouter);
 
 exp.use(Error);

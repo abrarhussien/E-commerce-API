@@ -11,6 +11,9 @@ exp.use(express.json());
 //Database
 require("./db/dbConnection");
 
+const { auth } = require('./middleware/auth');
+const { isAdmin } = require('./middleware/admin');
+
 const apiError = require("./validation/apiError");
 const Error = require("./middleware/error");
 
@@ -20,12 +23,16 @@ const reviewRoutes = require("./routes/review.route");
 const userProfileRoutes = require("./routes/userProfile.route");
 const categoryRoutes = require("./routes/category.route");
 const orderRoute = require("./routes/order.route");
+const userRouter=require('./routes/users.route');
+const AdminRouter=require("./routes/admin.route");
 
 exp.use("/api/products", productsRoutes);
 exp.use("/api/categories", categoryRoutes);
 exp.use("/api/profile", userProfileRoutes);
 exp.use("/api/product", reviewRoutes);
 exp.use("/api/orders", orderRoute);
+exp.use("/api/users",userRouter);
+exp.use("/api/admin",AdminRouter);
 
 exp.use(Error);
 

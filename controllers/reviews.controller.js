@@ -40,6 +40,61 @@ const addProductReviews = async (req, res) => {
     catch(error){res.status(404).send({message:error.message})}
 }
 
+const deleteProductReviews = async (req, res) => {
+    try{
+    
+    //const user= req.user;
+    //const {user}=req.body;
+
+    const { id } = req.params;
+
+    if(!user ) 
+    return res.status(404).send({message:"missed data"})
+
+    const review = await Review.findOne({ _id: id }).populate("user");
+    if(!review){
+    res.status(422).send("invalid") 
+    return 
+    } 
+    if(review.user.id!==user.id){
+        res.status(422).send("invalid") 
+        return 
+    }
+    await review.deleteOne({ _id: id });
+
+    res.send("deleted");
+}
+    catch(error){res.status(404).send({message:error.message})}
+}
+
+const editProductReviews = async (req, res) => {
+    try{
+    //const email =req.headers["email"];
+    const {reviewDetails,user}=req.body;
+    //const user= req.user;
+    
+    //const user = await User.findOne({email: email});
+
+    const { id } = req.params;
+
+    if(!user ) 
+    return res.status(404).send({message:"missed data"})
+
+    const review = await Review.findOne({ _id: id }).populate("user");
+    if(!review){
+    res.status(422).send("invalid1") 
+    return 
+    } 
+
+    if(review.user.id!=user.id){
+        res.status(422).send("invalid2") 
+        return 
+    }
+    const updatedReview = await Review.updateOne({ _id: id },{reviewDetails });
+    res.send(updatedReview);}
+    catch(error){res.status(404).send({message:error.message})}
+}
+
 
 const addProductRating = async (req, res) => {
     try{
@@ -74,5 +129,7 @@ const addProductRating = async (req, res) => {
 module.exports = { 
     getProductReviews,
     addProductReviews,
-    addProductRating
+    addProductRating,
+    deleteProductReviews,
+    editProductReviews
 };

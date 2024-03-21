@@ -43,7 +43,7 @@ const addProductReviews = async (req, res) => {
 const deleteProductReviews = async (req, res) => {
     try{
     
-    //const user= req.user;
+    const user= req.user;
     //const {user}=req.body;
 
     const { id } = req.params;
@@ -70,8 +70,8 @@ const deleteProductReviews = async (req, res) => {
 const editProductReviews = async (req, res) => {
     try{
     //const email =req.headers["email"];
-    const {reviewDetails,user}=req.body;
-    //const user= req.user;
+    const {reviewDetails}=req.body;
+    const user= req.user;
     
     //const user = await User.findOne({email: email});
 
